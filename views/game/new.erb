@@ -1,0 +1,6 @@
+<%= "Welcome player #{session[:player_id]}" %>
+<form action="/game/new" method="POST">
+What's your name?
+<input type="text" name="name">
+<input type="submit" value="Let's go!">
+</form>

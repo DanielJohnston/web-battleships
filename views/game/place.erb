@@ -1,0 +1,20 @@
+Place your ships, player <%= session[:player_id] %>, 
+<%= $player_names[session[:player_id]] %>:
+
+<pre><%= $game.own_board_view $game.player_1 %></pre>
+
+<form action ="/game/place" method="POST">
+  Where do you want to place a ship?
+  <br><h3>Ship type</h3>
+  <input type="radio" name="shiptype" value="submarine" checked>Submarine (1)
+  <br><input type="radio" name="shiptype" value="destroyer">Destroyer (2)
+  <br><input type="radio" name="shiptype" value="cruiser">Cruiser (3)
+  <br><input type="radio" name="shiptype" value="battleship">Battleship (4)
+  <br><input type="radio" name="shiptype" value="aircraft_carrier">Aircraft carrier (5)
+  <br><br><h3>Grid location:</h3>
+  <input type="text" name="starting_coordinate">
+  <br><br><h3>Direction of placement:</h3>
+  <input type="radio" name="direction" value="horizontally" checked>Right
+  <br><input type="radio" name="direction" value="vertically">Down
+  <br><br><input type="submit" value="Place the ship">
+</form>
