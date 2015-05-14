@@ -1,0 +1,10 @@
+<h3>Your board</h3>
+<br><pre><%= $game.own_board_view $game.send(session[:player_id]) %></pre>
+<br>
+<h3>Opponent's board</h3>
+<br><pre><%= $game.opponent_board_view $game.send(session[:player_id]) %></pre>
+<br>
+<form action="/game/play" method="POST">
+  Fire at:<input type="text" name="coord">
+  <br><input type="submit" value="Fire!">
+</form>

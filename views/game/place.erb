@@ -1,7 +1,7 @@
-Place your ships, player <%= session[:player_id] %>, 
+Place your ships, <%= session[:player_id] %>,
 <%= $player_names[session[:player_id]] %>:
 
-<pre><%= $game.own_board_view $game.player_1 %></pre>
+<pre><%= $game.own_board_view $game.send(session[:player_id]) %></pre>
 
 <form action ="/game/place" method="POST">
   Where do you want to place a ship?
@@ -18,3 +18,4 @@ Place your ships, player <%= session[:player_id] %>,
   <br><input type="radio" name="direction" value="vertically">Down
   <br><br><input type="submit" value="Place the ship">
 </form>
+<br><a href="/game/play">I'M DONE HERE. LET'S PLAY!</a>
