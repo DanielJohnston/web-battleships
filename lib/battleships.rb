@@ -21,9 +21,8 @@ class BattleshipsWeb < Sinatra::Base
     # Figure out who this player is
     # To do: error handling for 3rd, 4th etc. players
     # To do: enable multiple games at once
-    if session.has_key?(:player_id) # Player is already playing!
-
-      redirect '/game/new'
+    if session.has_key?(:player_id) # Player is already set up
+      'Enter a name!'
     elsif $game_status.has_key?(:player_1) # Player 2 setup
       $game_status[:player_2]=:giving_name
       session[:player_id]=:player_2
@@ -40,7 +39,8 @@ class BattleshipsWeb < Sinatra::Base
 
   post '/game/new' do
     # Check that a name has been entered, go to placement
-    if params.has_key?(:name)
+    # Note that params has unusual syntax for has_key?
+    if params.has_key?('name')
       redirect '/game/new' if params[:name].length == 0
       $player_names[session[:player_id]] = params[:name]
       redirect '/game/place'
