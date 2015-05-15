@@ -22,23 +22,16 @@ class BattleshipsWeb < Sinatra::Base
     # To do: error handling for 3rd, 4th etc. players
     # To do: enable multiple games at once
     if session.has_key?(:player_id) # Player is already playing!
-      puts 'WHOA! This player already has a session player no. ID'
-      puts "They are identified as #{session[:player_id]}"
+
       redirect '/game/new'
     elsif $game_status.has_key?(:player_1) # Player 2 setup
-      puts 'PLAYER 2 UP'
       $game_status[:player_2]=:giving_name
       session[:player_id]=:player_2
       session[:other_player]=:player_1
-      puts "game status: #{$game_status}"
-      puts "session[player_id]: #{session[:player_id]}"
     else # Player 1 setup
-      puts 'PLAYER 1 UP'
       $game_status[:player_1]=:giving_name
       session[:player_id]=:player_1
       session[:other_player]=:player_2
-      puts "game status: #{$game_status}"
-      puts "session[player_id]: #{session[:player_id]}"
     end
 
     # Display a name entry form
@@ -50,8 +43,6 @@ class BattleshipsWeb < Sinatra::Base
     if params.has_key?(:name)
       redirect '/game/new' if params[:name].length == 0
       $player_names[session[:player_id]] = params[:name]
-      puts $player_names
-      puts session[:player_id]
       redirect '/game/place'
     else # Go back to name entry if no name was entered
       redirect '/game/new'
@@ -80,7 +71,6 @@ class BattleshipsWeb < Sinatra::Base
     $game_status[session[:player_id]] = :playing
     $game_status[:whose_turn] ||= :player_1 # player 1 takes first move
 
-    puts $game_status
     if not($game_status[:player_1]==:playing and $game_status[:player_2]==:playing)
       # Display a wait to play screen if ship placement ongoing
       erb :'game/waitToPlay'
